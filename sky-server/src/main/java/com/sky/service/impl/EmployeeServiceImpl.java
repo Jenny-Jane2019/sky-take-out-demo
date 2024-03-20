@@ -1,16 +1,20 @@
 package com.sky.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.PasswordConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
+import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import com.sky.exception.AccountLockedException;
 import com.sky.exception.AccountNotFoundException;
 import com.sky.exception.PasswordErrorException;
 import com.sky.mapper.EmployeeMapper;
+import com.sky.result.PageResult;
 import com.sky.service.EmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,5 +85,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setUpdateUser(empId);
         employeeMapper.insert(employee);
         return employee;
+    }
+
+    @Override
+    public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
+        // 分页查询 使用Mybatis的分页插件
+        PageHelper.startPage(employeePageQueryDTO.getPage(),employeePageQueryDTO.getPageSize());
+        // 接下来执行的查询操作会被 PageHelper 拦截并进行分页处理, 会自动在原始的查询语句中添加分页的 SQL 语句，例如在 MySQL 中是使用 LIMIT 关键字来实现分页。这样就保证了查询结果只返回符合分页条件的部分数据，而不是全部数据。
+        Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
+        // 将结果写入
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(page.getTotal());
+        pageResult.setRecords(page.getResult());
+        return pageResult;
     }
 }
