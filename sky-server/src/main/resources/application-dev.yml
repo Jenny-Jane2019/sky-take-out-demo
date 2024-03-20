@@ -1,8 +1,8 @@
 sky:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    host: localhost
-    port: 3306
+    host: sh-cynosdbmysql-grp-hk8b7n4g.sql.tencentcdb.com
+    port: 20473
     database: sky_take_out
-    username: root
-    password: root
+    username: lqj
+    password: LQJ123456@
