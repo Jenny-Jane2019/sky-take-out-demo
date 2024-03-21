@@ -73,16 +73,16 @@ public class EmployeeServiceImpl implements EmployeeService {
         BeanUtils.copyProperties(employeeDTO, employee);
         // 设置账号状态（新建时默认时ENABLE）
         employee.setStatus(StatusConstant.ENABLE);
-        // 设置当前记录的创建时间喝修改时间
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
+        // 设置当前记录的创建时间喝修改时间（AOP实现）
+        // employee.setCreateTime(LocalDateTime.now());
+        // employee.setUpdateTime(LocalDateTime.now());
         // 设置密码，默认值123456
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
-        // 设置当前记录创建人id和修改人id
+        // 设置当前记录创建人id和修改人id（AOP实现）
         // 在Service中获取线程局部变量中的值
-        Long empId = BaseContext.getCurrentId();
-        employee.setCreateUser(empId);
-        employee.setUpdateUser(empId);
+        // Long empId = BaseContext.getCurrentId();
+        // employee.setCreateUser(empId);
+        // employee.setUpdateUser(empId);
         employeeMapper.insert(employee);
         return employee;
     }
@@ -137,9 +137,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void update(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO, employee);
-        // 需要更新员工表中的更新人id和更新时间字段
-        employee.setUpdateUser(BaseContext.getCurrentId());
-        employee.setUpdateTime(LocalDateTime.now());
+        // 需要更新员工表中的更新人id和更新时间字段（AOP实现）
+        // employee.setUpdateUser(BaseContext.getCurrentId());
+        // employee.setUpdateTime(LocalDateTime.now());
         employeeMapper.update(employee);
     }
 }
