@@ -14,4 +14,8 @@
              #{id}
         </foreach>
     </delete>
+
+    <update id="updateBatch">
+        update
+    </update>
 </mapper>
