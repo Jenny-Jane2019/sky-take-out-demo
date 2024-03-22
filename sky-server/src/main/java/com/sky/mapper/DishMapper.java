@@ -40,4 +40,6 @@ public interface DishMapper {
     Dish getById(Long id);
     @AutoFill(value=OperationType.UPDATE)
     void update(Dish dish);
+
+    List<Dish> list(Dish dish);
 }
