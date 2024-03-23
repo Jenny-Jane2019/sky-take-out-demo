@@ -8,4 +8,6 @@ import java.util.List;
 public interface ShoppingCartService {
     void addShoppingCart(ShoppingCartDTO shoppingCartDTO);
     List<ShoppingCart> listShoppingCart();
+    void cleanShoppingCart();
+    void subShoppingCart(ShoppingCartDTO shoppingCartDTO);
 }
